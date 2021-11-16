@@ -27,7 +27,6 @@ Here are some results of my project:
 </p>
 
 
----
 ## Files Description
 
 My project includes the following files:
@@ -35,7 +34,7 @@ My project includes the following files:
 * model.h5 containing a trained convolution neural network.
 * drive.py for driving the car in autonomous mode.
 * video.py for recording the simulation. 
----
+
 ## Dependencies
 This lab requires:
 
@@ -48,7 +47,7 @@ This lab requires:
 pip install python-socketio==4.6.0
 pip install python-engineio==3.13.0
 ```
----
+
 ## Driving and recording
 
 Once the model has been saved in an `.h5` file, it can be used to control the vehicle with drive.py using this command:
@@ -92,7 +91,7 @@ It will run the video at 48 FPS. The default FPS is 60.
 
 Note: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add "export LANG=en_US.utf8" to the bashrc file.
 
----
+
 ## Model Architecture and Training Strategy
 
 The Behavioral-Cloning.ipynb file contains the code for training the convolution neural network and saving the model. The file shows the pipeline that I used for training and validating the model, and it contains comments to explain how the code works.
