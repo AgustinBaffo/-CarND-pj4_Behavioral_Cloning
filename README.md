@@ -98,11 +98,12 @@ The Behavioral-Cloning.ipynb file contains the code for training the convolution
 
 ### Model
 
-My model is based on [Nvidia End to End Learning for Self-Driving Cars](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) architecture. I thought this architecture might be appropriate because it has been proven to work in real life and because of its size it is suitable for real-time applications. The architecture is showing in the following image:
+My model is based on [Nvidia End to End Learning for Self-Driving Cars](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) architecture. I thought this architecture might be appropriate because it has been used to work in real life and its size is suitable for real-time applications. The architecture is showing in the following image:
 
 <p align="center"><img src="./misc/nvidia-net.png" alt="nvidia-net" width="500" class="center"/></p>
 
 The model includes RELU activation functions to introduce nonlinearity. The data is preprocessed in the first two layers. First I apply a crop over the image to get an interesting area:
+
 ```sh
  model.add(Cropping2D(cropping=((60,20), (0,0)), input_shape=(160,320,3)))
 ```
@@ -110,34 +111,35 @@ Then normalize the data to a value in the range [-1,1]:
 ```sh
 model.add(Lambda(lambda x: x/127.5 - 1.))
 ```
-
 The model also contains dropout layers in order to reduce overfitting. The activation rate is set in 0.5.
 
 
 ### Appropriate training data
 
-The model used an adam optimizer and the batch size is set to 256.
+The model used an Adam optimizer and the batch size is set to 256.
 
 I used different set of training data:
-    - Record driving clockwise
-    - Record driving counterclockwise
-    - Record recovering from the left and right sides
-    - Record recovering from the left and right curves
-    - Added udacity data to expand the dataset
+* Record driving clockwise
+* Record driving counterclockwise
+* Record recovering from the left and right sides
+* Record recovering from the left and right curves
+* Added udacity data to expand the dataset
 
-Total data was: 42927 images.
+Total data: 42927 images.
 
-Note: Do not include data in this repository due to storage size.
+Note: I did not include data in this repository due to storage size.
 
-If the simulator is controlled with the keyboard (instead of the mouse), the rotation angles are discrete, and take one of these 3 values: `[-0.25,0,0.25]`, producing an imbalance of data. I decided to balance the data by croping the majority data and normalizing the histogram.
+On the other hand, if the simulator is controlled with the keyboard (instead of the mouse), the steering angles are discrete, and take one of these 3 possible values: `[-0.25,0,0.25]`. It produces an imbalance of data. So, I decided to balance the data by croping the majority data and normalizing the histogram.
 
 
 <p align="center"><img src="./misc/histogram.jpg" alt="sides_image" class="center"/></p>
 
 ### Data augmentation
 
-I use sides images recorded in every test to augment the dataset. I modified the angle for these images by adding a correction factor of 0.25. Here is an example of how it looks:
+* I use sides images recorded in every test to augment the dataset. I modified the angle for these images by adding a correction factor of 0.25. Here is an example of how it looks:
 
 <p align="center"><img src="./misc/sides_image.jpg" alt="sides_image" class="center"/></p>
 
-I also flipped half of images and angles thinking that this would balance the data between lines on the left and right side. Moreover I changed the contrast of half the images to help to generalize the model. The data set is randomly shuffled after each itration.
+* I flipped half of the images and angles. It would balance the data between lines on the left and right side. 
+* I changed the contrast of half the images to help to generalize the model. 
+* Bear in mind that the data set is randomly shuffled after each itration.
