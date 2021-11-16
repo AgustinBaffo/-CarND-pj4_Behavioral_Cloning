@@ -3,30 +3,13 @@
 
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<!-- ======================================================
-Overview
----
-
-You will train, validate and test a model using Keras. The model will output a steering angle to an autonomous vehicle.
-
-We have provided a simulator where you can steer a car around a track for data collection. You'll use image data and steering angles to train a neural network and then use this model to drive the car autonomously around the track.
-
-
-
-The Project
----
-The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior 
-* Design, train and validate a model that predicts a steering angle from image data
-* Use the model to drive the vehicle autonomously around the first track in the simulator. The vehicle should remain on the road for an entire loop around the track.
-* Summarize the results with a written report
-====================================================== -->
-
 In this project the following tasks were developed:
 * Use the simulator to collect data of good driving behavior.
 * Build a convolution neural network in Keras that predicts steering angles from images.
 * Train and validate the model with a training and validation datasets.
 * Test that the model successfully drives around track one without leaving the road in the simulator.
+
+A simulator was provided in which it was possible to drive a car on a track to collect data. The image data and steering angles were used to train a neural network and generated a model capable of driving the car autonomously around the track. 
 
 Here are some results of my project:
 
@@ -43,25 +26,17 @@ Here are some results of my project:
     <img src="./output/run3.gif" alt="sides_image" class="center"/>
 </p>
 
-[//]: # (Image References)
-
-[image1]: ./examples/nvidia-net.png "Nvidia Net"
-[image2]: ./examples/sides_image.png "Side Images"
-
 
 ---
-### Files Submitted & Code Quality
-
-#### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
+## Files Description
 
 My project includes the following files:
-* model.ipynb containing the script to create and train the model.
+* Behavioral-Cloning.ipynb containing the script to create and train the model.
 * model.h5 containing a trained convolution neural network.
 * drive.py for driving the car in autonomous mode.
 * video.py for recording the simulation. 
-
-
-### Dependencies
+---
+## Dependencies
 This lab requires:
 
 * The lab enviroment can be created with [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit).
@@ -73,20 +48,19 @@ This lab requires:
 pip install python-socketio==4.6.0
 pip install python-engineio==3.13.0
 ```
+---
+## Driving and recording
 
-### Driving and recording
 Once the model has been saved in an `.h5` file, it can be used to control the vehicle with drive.py using this command:
 ```sh
 python drive.py model.h5
 ```
-The fourth argument, `run1`, is the directory in which to save the images seen by the agent. If the directory already exists, it'll be overwritten.
+The above command will load the trained model and use the model to make predictions on individual images in real-time and send the predicted angle back to the server via a websocket connection. You can pass a fourth argument (`run1`) that is the directory in which the images seen by the car are stored. If the directory already exists, it'll be overwritten.
 
 ```sh
 python drive.py model.h5 run1
 ```
-The above command will load the trained model and use the model to make predictions on individual images in real-time and send the predicted angle back to the server via a websocket connection.
 
-Note: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add "export LANG=en_US.utf8" to the bashrc file.
 
 The image file name is a timestamp of when the image was seen. 
 
@@ -116,11 +90,14 @@ python video.py run1 --fps 48
 It will run the video at 48 FPS. The default FPS is 60.
 
 
+Note: There is known local system's setting issue with replacing "," with "." when using drive.py. When this happens it can make predicted steering values clipped to max/min values. If this occurs, a known fix for this is to add "export LANG=en_US.utf8" to the bashrc file.
 
-
-The model.ipynb file contains the code for training the convolution neural network and saving the model. The file shows the pipeline that I used for training and validating the model, and it contains comments to explain how the code works.
-
+---
 ## Model Architecture and Training Strategy
+
+The Behavioral-Cloning.ipynb file contains the code for training the convolution neural network and saving the model. The file shows the pipeline that I used for training and validating the model, and it contains comments to explain how the code works.
+
+### Model
 
 My model is based on [Nvidia End to End Learning for Self-Driving Cars](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf) architecture. I thought this architecture might be appropriate because it has been proven to work in real life and because of its size it is suitable for real-time applications. The architecture is showing in the following image:
 
@@ -138,11 +115,11 @@ model.add(Lambda(lambda x: x/127.5 - 1.))
 The model also contains dropout layers in order to reduce overfitting. The activation rate is set in 0.5.
 
 
-#### 3. Appropriate training data
+### Appropriate training data
 
 The model used an adam optimizer and the batch size is set to 256.
 
-I use different set of training data:
+I used different set of training data:
     - Record driving clockwise
     - Record driving counterclockwise
     - Record recovering from the left and right sides
@@ -151,18 +128,14 @@ I use different set of training data:
 
 Total data was: 42927 images.
 
-BALANCED DATA (histogram with a lot 0 in steer angle)
+Note: Do not include data in this repository due to storage size.
 
-### Model Architecture and Training Strategy
-
-#### 1. Solution Design Approach
-
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I started testing with just my records driving normally clockwise and counter clockwise. It worked when the car was in the center of the lane, but he doesn't know how to recover when he gets close to the sidelines.
-
-Then I added recovery data and udacity to expand a dataset and the behavior improved a lot. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. To combat the overfitting, I modified the model added dropout layers.
+If the simulator is controlled with the keyboard (instead of the mouse), the rotation angles are discrete, and take one of these 3 values: `[-0.25,0,0.25]`, producing an imbalance of data. I decided to balance the data by croping the majority data and normalizing the histogram.
 
 
-## 2. Data augmentation
+<p align="center"><img src="./misc/histogram.jpg" alt="sides_image" class="center"/></p>
+
+### Data augmentation
 
 I use sides images recorded in every test to augment the dataset. I modified the angle for these images by adding a correction factor of 0.25. Here is an example of how it looks:
 
