@@ -137,6 +137,8 @@ I use different set of training data:
 
 Total data was: 42927 images.
 
+BALANCED DATA (histogram with a lot 0 in steer angle)
+
 ### Model Architecture and Training Strategy
 
 #### 1. Solution Design Approach
