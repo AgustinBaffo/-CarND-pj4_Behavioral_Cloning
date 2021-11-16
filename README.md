@@ -3,7 +3,6 @@
 
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-
 <!-- ======================================================
 Overview
 ---
@@ -23,11 +22,26 @@ The goals / steps of this project are the following:
 * Summarize the results with a written report
 ====================================================== -->
 
-The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior
-* Build, a convolution neural network in Keras that predicts steering angles from images
-* Train and validate the model with a training and validation set
-* Test that the model successfully drives around track one without leaving the road
+In this project the following tasks were developed:
+* Use the simulator to collect data of good driving behavior.
+* Build a convolution neural network in Keras that predicts steering angles from images.
+* Train and validate the model with a training and validation datasets.
+* Test that the model successfully drives around track one without leaving the road in the simulator.
+
+Here are some results of my project:
+
+<p align="center" float="left" justify-content="center">
+    <img src="./output/output1.gif" alt="sides_image" class="center" width="340"/>
+    <img src="./output/run1.gif" alt="sides_image" class="center"/>
+</p>
+<p align="center" float="left" justify-content="center">
+    <img src="./output/output2.gif" alt="sides_image" class="center" width="340"/>
+    <img src="./output/run2.gif" alt="sides_image" class="center"/>
+</p>
+<p align="center" float="left" justify-content="center">
+    <img src="./output/output3.gif" alt="sides_image" class="center" width="340"/>
+    <img src="./output/run3.gif" alt="sides_image" class="center"/>
+</p>
 
 [//]: # (Image References)
 
