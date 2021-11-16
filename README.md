@@ -138,6 +138,6 @@ If the simulator is controlled with the keyboard (instead of the mouse), the rot
 
 I use sides images recorded in every test to augment the dataset. I modified the angle for these images by adding a correction factor of 0.25. Here is an example of how it looks:
 
-<p align="center"><img src="./misc/sides_image.png" alt="sides_image" class="center"/></p>
+<p align="center"><img src="./misc/sides_image.jpg" alt="sides_image" class="center"/></p>
 
 I also flipped half of images and angles thinking that this would balance the data between lines on the left and right side. Moreover I changed the contrast of half the images to help to generalize the model. The data set is randomly shuffled after each itration.
